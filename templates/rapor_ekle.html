@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapor Ekle - Patoloji Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Patoloji Raporu Ekle</h1>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+                <li><a href="{{ url_for('hasta_ekle') }}">Hasta Ekle</a></li>
+                <li><a href="{{ url_for('rapor_ekle') }}" class="active">Rapor Ekle</a></li>
+                <li><a href="{{ url_for('arama') }}">Arama</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form method="POST" enctype="multipart/form-data" class="form">
+                <div class="form-group">
+                    <label for="hasta_id">Hasta Seçin:</label>
+                    <select id="hasta_id" name="hasta_id" required>
+                        <option value="">Hasta Seçiniz</option>
+                        {% for hasta in hastalar %}
+                            <option value="{{ hasta.id }}">{{ hasta.ad }} {{ hasta.soyad }} - {{ hasta.tc_no }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rapor_no">Rapor No:</label>
+                    <input type="text" id="rapor_no" name="rapor_no" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rapor_tarihi">Rapor Tarihi:</label>
+                    <input type="date" id="rapor_tarihi" name="rapor_tarihi" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="makroskopi">Makroskopi:</label>
+                    <textarea id="makroskopi" name="makroskopi" placeholder="Makroskopik bulgular..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mikroskopi">Mikroskopi:</label>
+                    <textarea id="mikroskopi" name="mikroskopi" placeholder="Mikroskopik bulgular..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tani">Tanı:</label>
+                    <textarea id="tani" name="tani" placeholder="Patolojik tanı..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dosya">Dosya Ekle (opsiyonel):</label>
+                    <input type="file" id="dosya" name="dosya" accept=".png,.jpg,.jpeg,.gif,.pdf,.doc,.docx">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Rapor Kaydet</button>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">İptal</a>
+                </div>
+            </form>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Patoloji Laboratuvarı Sistemi</p>
+        </footer>
+    </div>
+</body>
+</html>

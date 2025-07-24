@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasta Ekle - Patoloji Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hasta Ekle</h1>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+                <li><a href="{{ url_for('hasta_ekle') }}" class="active">Hasta Ekle</a></li>
+                <li><a href="{{ url_for('rapor_ekle') }}">Rapor Ekle</a></li>
+                <li><a href="{{ url_for('arama') }}">Arama</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form method="POST" class="form">
+                <div class="form-group">
+                    <label for="ad">Ad:</label>
+                    <input type="text" id="ad" name="ad" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="soyad">Soyad:</label>
+                    <input type="text" id="soyad" name="soyad" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tc_no">TC No:</label>
+                    <input type="text" id="tc_no" name="tc_no" pattern="[0-9]{11}" title="11 haneli TC numarası giriniz" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dogum_tarihi">Doğum Tarihi:</label>
+                    <input type="date" id="dogum_tarihi" name="dogum_tarihi">
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefon">Telefon:</label>
+                    <input type="tel" id="telefon" name="telefon">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Hasta Ekle</button>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">İptal</a>
+                </div>
+            </form>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Patoloji Laboratuvarı Sistemi</p>
+        </footer>
+    </div>
+</body>
+</html>

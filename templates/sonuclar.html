@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arama Sonuçları - Patoloji Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Arama Sonuçları</h1>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+                <li><a href="{{ url_for('hasta_ekle') }}">Hasta Ekle</a></li>
+                <li><a href="{{ url_for('rapor_ekle') }}">Rapor Ekle</a></li>
+                <li><a href="{{ url_for('arama') }}">Arama</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <h2>"{{ arama_terimi }}" için arama sonuçları</h2>
+            
+            {% if sonuclar %}
+                <div class="search-results">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ad Soyad</th>
+                                <th>TC No</th>
+                                <th>Telefon</th>
+                                <th>Rapor No</th>
+                                <th>Rapor Tarihi</th>
+                                <th>Tanı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for sonuc in sonuclar %}
+                                <tr>
+                                    <td>{{ sonuc.ad }} {{ sonuc.soyad }}</td>
+                                    <td>{{ sonuc.tc_no }}</td>
+                                    <td>{{ sonuc.telefon or '-' }}</td>
+                                    <td>{{ sonuc.rapor_no or '-' }}</td>
+                                    <td>{{ sonuc.rapor_tarihi or '-' }}</td>
+                                    <td>{{ sonuc.tani or '-' }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <p>Arama kriterinize uygun sonuç bulunamadı.</p>
+                </div>
+            {% endif %}
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="{{ url_for('arama') }}" class="btn btn-primary">Yeni Arama</a>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">Ana Sayfa</a>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Patoloji Laboratuvarı Sistemi</p>
+        </footer>
+    </div>
+</body>
+</html>

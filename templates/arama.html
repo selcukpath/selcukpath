@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arama - Patoloji Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hasta ve Rapor Arama</h1>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+                <li><a href="{{ url_for('hasta_ekle') }}">Hasta Ekle</a></li>
+                <li><a href="{{ url_for('rapor_ekle') }}">Rapor Ekle</a></li>
+                <li><a href="{{ url_for('arama') }}" class="active">Arama</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <form method="POST" action="{{ url_for('ara') }}" class="form">
+                <div class="form-group">
+                    <label for="arama_tipi">Arama Türü:</label>
+                    <select id="arama_tipi" name="arama_tipi" required>
+                        <option value="">Arama türü seçiniz</option>
+                        <option value="tc_no">TC Numarası</option>
+                        <option value="ad_soyad">Ad Soyad</option>
+                        <option value="rapor_no">Rapor Numarası</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="arama_terimi">Arama Terimi:</label>
+                    <input type="text" id="arama_terimi" name="arama_terimi" placeholder="Aramak istediğiniz kelimeyi giriniz..." required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Ara</button>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">Ana Sayfa</a>
+                </div>
+            </form>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Patoloji Laboratuvarı Sistemi</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patoloji Laboratuvarı Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Patoloji Laboratuvarı Sistemi</h1>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Ana Sayfa</a></li>
+                <li><a href="{{ url_for('hasta_ekle') }}">Hasta Ekle</a></li>
+                <li><a href="{{ url_for('rapor_ekle') }}">Rapor Ekle</a></li>
+                <li><a href="{{ url_for('arama') }}">Arama</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="welcome-section">
+                <h2>Hoş Geldiniz</h2>
+                <p>Patoloji laboratuvarı yönetim sistemine hoş geldiniz. Bu sistem ile:</p>
+                <ul>
+                    <li>Hasta bilgilerini kaydedebilir</li>
+                    <li>Patoloji raporlarını oluşturabilir</li>
+                    <li>Hasta ve rapor bilgilerini arayabilir</li>
+                    <li>Dosyaları yükleyip saklayabilirsiniz</li>
+                </ul>
+            </div>
+            
+            <div class="quick-actions">
+                <h3>Hızlı İşlemler</h3>
+                <div class="action-buttons">
+                    <a href="{{ url_for('hasta_ekle') }}" class="btn btn-primary">Yeni Hasta Ekle</a>
+                    <a href="{{ url_for('rapor_ekle') }}" class="btn btn-secondary">Rapor Oluştur</a>
+                    <a href="{{ url_for('arama') }}" class="btn btn-info">Arama Yap</a>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 Patoloji Laboratuvarı Sistemi</p>
+        </footer>
+    </div>
+</body>
+</html>
+</html>
